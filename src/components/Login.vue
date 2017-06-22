@@ -50,7 +50,7 @@ export default {
       this.$store.commit('TOGGLE_LOADING')
 
       /* Making API call to authenticate a user */
-      api.request('post', '/login', {username, password})
+      api.request('post', '/login', JSON.stringify({username, password}))
       .then(response => {
         this.toggleLoading()
 

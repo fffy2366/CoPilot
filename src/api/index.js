@@ -14,6 +14,7 @@ export default {
     }
 
     var url = config.serverURI + uri
+    console.log('method:' + method)
     return axios({ method, url, data })
   }
 }

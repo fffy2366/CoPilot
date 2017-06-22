@@ -187,7 +187,7 @@ export default {
     demo () {
       return {
         displayName: faker.name.findName(),
-        avatar: faker.image.avatar(),
+        avatar: '/static/img/128.jpg',
         email: faker.internet.email(),
         randomCard: faker.helpers.createCard()
       }
