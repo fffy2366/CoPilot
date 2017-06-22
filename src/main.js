@@ -29,9 +29,13 @@ var router = new VueRouter({
   }
 })
 
-// Some middleware to help us ensure the user is authenticated.
+// Todo: Some middleware to help us ensure the user is authenticated.
 router.beforeEach((to, from, next) => {
   // window.console.log('Transition', transition)
+  console.log('to.auth:' + to.auth)
+  // console.log('to.router.app.$store.state.token:' + to.router.app.$store.state.token)
+  console.log('to:' + JSON.stringify(to))
+  console.log('from:' + JSON.stringify(from))
   if (to.auth && (to.router.app.$store.state.token === 'null')) {
     window.console.log('Not authenticated')
     next({
@@ -57,6 +61,7 @@ new Vue({
 // Check local storage to handle refreshes
 if (window.localStorage) {
   var localUserString = window.localStorage.getItem('user') || 'null'
+  console.log('localUser:' + localUserString)
   var localUser = JSON.parse(localUserString)
 
   if (localUser && store.state.user !== localUser) {
