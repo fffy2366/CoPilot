@@ -163,6 +163,7 @@ import { mapState } from 'vuex'
 import config from '../config'
 import Sidebar from './Sidebar'
 import 'hideseek'
+import api from '../api'
 
 export default {
   name: 'Dash',
@@ -181,6 +182,24 @@ export default {
       auth: true
     }
   },
+  created () {
+    api.request('get', '/api/user')
+      .then(response => {
+        this.toggleLoading()
+        var data = response.data
+        console.log(data)
+        if (data.error) {
+          this.$router.push('/login')
+        }
+      })
+      .catch(error => {
+        this.$store.commit('TOGGLE_LOADING')
+        console.log(error)
+
+        this.response = 'Server appears to be offline'
+        this.toggleLoading()
+      })
+  },
   computed: {
     ...mapState([
       'userInfo'
@@ -197,6 +216,9 @@ export default {
   methods: {
     changeloading () {
       this.$store.commit('TOGGLE_SEARCHING')
+    },
+    toggleLoading () {
+      this.loading = (this.loading === '') ? 'loading' : ''
     }
   }
 }
