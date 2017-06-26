@@ -200,13 +200,37 @@ import $ from 'jquery'
 // Require needed datatables modules
 import 'datatables.net'
 import 'datatables.net-bs'
+import api from '../../api'
 
 export default {
   name: 'Tables',
+  created () {
+    api.request('get', '/api/user')
+      .then(response => {
+        this.toggleLoading()
+        var data = response.data
+        console.log(data)
+        if (data.error) {
+          this.$router.push('/login')
+        }
+      })
+      .catch(error => {
+        this.$store.commit('TOGGLE_LOADING')
+        console.log(error)
+
+        this.response = 'Server appears to be offline'
+        this.toggleLoading()
+      })
+  },
   mounted () {
     this.$nextTick(() => {
       $('#example1').DataTable()
     })
+  },
+  methods: {
+    toggleLoading () {
+      this.loading = (this.loading === '') ? 'loading' : ''
+    }
   }
 }
 </script>

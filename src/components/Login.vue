@@ -50,7 +50,8 @@ export default {
       this.$store.commit('TOGGLE_LOADING')
 
       /* Making API call to authenticate a user */
-      api.request('post', '/login', JSON.stringify({username, password}))
+      // JSON.stringify({username, password}
+      api.request('post', '/api/login', {username, password})
       .then(response => {
         this.toggleLoading()
 
@@ -71,7 +72,7 @@ export default {
 
         /* Setting user in the state and caching record to the localStorage */
         if (data.user) {
-          var token = 'Bearer ' + data.token
+          var token = data.token
 
           this.$store.commit('SET_USER', data.user)
           this.$store.commit('SET_TOKEN', token)

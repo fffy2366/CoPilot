@@ -1,4 +1,5 @@
 export default {
+  auth: true,
   callingAPI: false,
   searching: '',
   serverURI: 'http://10.110.1.136:8080',

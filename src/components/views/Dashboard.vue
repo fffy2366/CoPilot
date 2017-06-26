@@ -184,7 +184,8 @@ export default {
           a.push(Math.floor(Math.random() * (max - min + 1)) + max)
         }
         return a
-      }
+      },
+      auth: true
     }
   },
   computed: {
